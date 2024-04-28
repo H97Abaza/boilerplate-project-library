@@ -140,32 +140,31 @@ suite('Functional Tests', function () {
             assert.isString(res.body.comments[0], 'Book.comments should be an array of strings');
             done();
           });
-
-        test('Test POST /api/books/[id] without comment field', function (done) {
-          chai.request(server)
-            .post('/api/books/' + _id)
-            .end(function (err, res) {
-              assert.equal(res.status, 200);
-              assert.isString(res.text, 'response should be an array');
-              assert.equal(res.text, 'missing required field comment', 'response should be "missing required field comment"');
-              done();
-            });
-
-        });
-
-        test('Test POST /api/books/[id] with comment, id not in db', function (done) {
-          chai.request(server)
-            .post('/api/books/' + invalid_id).send({ comment })
-            .end(function (err, res) {
-              assert.equal(res.status, 200);
-              assert.isString(res.text, 'response should be a string');
-              assert.equal(res.text, 'no book exists', 'response should be "no book exists"');
-              done();
-            });
-
-        });
+      });
+      test('Test POST /api/books/[id] without comment field', function (done) {
+        chai.request(server)
+          .post('/api/books/' + _id)
+          .end(function (err, res) {
+            assert.equal(res.status, 200);
+            assert.isString(res.text, 'response should be an array');
+            assert.equal(res.text, 'missing required field comment', 'response should be "missing required field comment"');
+            done();
+          });
 
       });
+
+      test('Test POST /api/books/[id] with comment, id not in db', function (done) {
+        chai.request(server)
+          .post('/api/books/' + invalid_id).send({ comment })
+          .end(function (err, res) {
+            assert.equal(res.status, 200);
+            assert.isString(res.text, 'response should be a string');
+            assert.equal(res.text, 'no book exists', 'response should be "no book exists"');
+            done();
+          });
+
+      });
+
     });
     suite('DELETE /api/books/[id] => delete book object id', function () {
 
