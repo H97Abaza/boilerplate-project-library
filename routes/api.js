@@ -111,7 +111,7 @@ module.exports = function (app) {
               console.log({ error });
             }
             book
-              .populate("comments")
+              .populate("comments commentcount")
               .then((doc) => res.json(doc))
               .catch((err) => console.log(err));
           } else res.send("no book exists");
